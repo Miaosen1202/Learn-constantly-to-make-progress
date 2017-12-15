@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- Vue 中 提供了 v-on: 来为元素绑定 事件 -->
+    <!-- 绑定的事件处理函数,必须定义到 VM 实例的  methods 属性中 -->
+    <!-- <input type="button" value="点击一下按钮, 俊哥 胖3斤" v-on:click="add(1, 2, 3)"> -->
+    <!-- <input type="button" value="点击一下按钮, 俊哥 胖3斤" v-on:click="add"> -->
+    <input type="button" value="点击一下按钮, 俊哥 胖3斤" @click="add">
+
+    <hr>
+    <h3>俊哥当前重量值: {{ weight }} 斤</h3>
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        weight: 10
+      },
+      methods: { // 这个 methods 属性中,可以定义好多的 事件处理函数
+        /* add(...args) { // 对象中,定义函数属性的简写形式
+        console.log(args)
+          console.log('ok123')
+        } */
+
+        add() { // 对象中,定义函数属性的简写形式
+          // 在 methods 中,如果想要访问 data 中的 值,只能通过 this.*** 来访问
+          // console.log(this.weight)
+          this.weight += 3
+          // 注意: 当 data 中的数据变化之后,会被  VM 调度者 监听到,然后,自动把最新的数据,应用到 页面上;
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
+
+
+
+
+<!-- 1. 如何创建一个 VM 实例 -->
+<!-- 2. 在 VM 实例中,我们学了  el   data    methods -->
+<!-- 3. {{  }}     v-text    v-cloak    v-html    v-bind:   简写是  :      v-on:   简写是 @ -->

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- <input type="button" value="按钮" v-bind:title="btnTitle" v-bind:id="customIdName"> -->
+
+    <!-- v-bind: 可以为 元素的属性,绑定 一些数据 -->
+    <!-- v-bind: 这个指令可以被简写成  :  , 今后推荐直接写 冒号 -->
+    <!-- v-bind: 指令中,如果想要实现表达式的拼接, 被拼接的 字符串,一定要 用 引号包裹起来, 否则,会被当作 变量解析 -->
+    <input type="button" value="按钮" :title="btnTitle" :id="customIdName + '这是追加的内容'">
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        btnTitle: '这是按钮的 自定义 title 值',
+        customIdName: '这是随便写的Id'
+      }
+    })
+  </script>
+</body>
+
+</html>

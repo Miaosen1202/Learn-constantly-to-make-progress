@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <!-- 1. 在页面中导入Vue的包 -->
+  <script src="./lib/vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <!-- 2. 创建一个 容器，将来，使用 Vue 就可以控制这个指定容器中的所有DOM元素  -->
+  <div id="app">
+    <!-- 这种 {{ }} 语法,叫做 插值表达式, 在插值表达式中,可以写 任何 合法的 JS 表达式  -->
+    <p>{{ msg2 ? '这是ok' : '这是 No' }}</p>
+    <hr>
+    <!-- 注意: {{  }} 语法只能使用在 元素标签内容区域,不能在  属性中使用 -->
+    <!-- 这里,我们使用的  v-text 属性语法,叫做  指令  -->
+    <!-- 在 Vue 中,所有的指令,都是属性,  Vue的指令,都是以 v- 开头的 -->
+    <h3 v-text="msg"></h3>
+  </div>
+
+  <!--   <div id="test">
+    <p>{{ msg2 }}</p>
+  </div> -->
+
+  <script>
+
+    // Vue 这个构造函数哪儿来的？ 
+    // 这里 new Vue() 得到 的 vm 实例,就是  MVVM 中的 核心, VM , 它提供了双向数据绑定的能力
+    const vm = new Vue({
+      el: '#app', // 指定当前要创建的这个vm实例，要控制页面上哪个区域  element   此处 el 属性指定的 元素，就是我们的 MVVM 中的 V 视图层
+      data: { // data 是一个对象，表示 我们要渲染的一些数据     此处的 data 属性就是 MVVM 中的  M 视图数据层
+        msg: '这是使用 Vue 渲染的数据哦， 我们并没有操作DOM元素',
+        msg2: false
+      }
+    })
+
+  </script>
+</body>
+
+</html>

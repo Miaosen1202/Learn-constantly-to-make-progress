@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <script>
+    // 此方法的作用,是根据给定 回调函数,查询到 指定项的索引
+    // callback 这个 callback 是一个 比较函数,如果这个 callback 返回值 为 true,就表示找到了对应的那一项
+    Array.prototype.myFindIndex = function (callback) {
+      for (var i = 0; i < this.length; i++) {
+        const result = callback(this[i])
+        // 如果 调用用户传递的  callback, 得到的返回值是 true,就表示找到了用户想要的那一项,因此,直接把 当前这个 索引 i 的值返回,就是这一项对应的索引值
+        if (result) {
+          return i
+        }
+      }
+    }
+
+    var a = [1, 2, 3, 4, 5]
+
+    const i = a.myFindIndex(function (item) {
+      if (item === 1) {
+        return true
+      }
+    })
+
+    console.log(i)
+
+  </script>
+</body>
+
+</html>
