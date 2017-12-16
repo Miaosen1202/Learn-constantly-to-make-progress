@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+  <style>
+    #ball {
+      width: 15px;
+      height: 15px;
+      background-color: red;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <input type="button" value="加入购物车" @click="flag=!flag">
+
+    <transition
+      @before-enter="beforeEnter"
+      @enter="enter"
+      @after-enter="afterEnter">
+      <div id="ball" v-show="flag"></div>
+    </transition>
+
+  </div>
+
+  <script>
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      },
+      methods: {
+        beforeEnter(el){ // 小球开始动画之前的起始状态
+          el.style.transform = 'translate(0, 0)'
+        },
+        enter(el, done){ // 小球动画结束之后的结束状态
+          // 这是固定写法，如果不写 el.offsetWidth 就无法实现动画效果
+          el.offsetLeft
+          el.style.transform = 'translate(150px, 300px)'
+          el.style.transition = 'all 1s ease'
+
+          // 当动画执行完毕后，会自动调用 done 这个函数，这个done 就是 afterEnter 函数的引用
+          // done()
+        },
+        afterEnter(el){ // 小球动画结束之后的回调函数，用来做一些清理工作
+          // 通过取非的操作，直接让小球跳过了后半场的动画
+          this.flag = !this.flag
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

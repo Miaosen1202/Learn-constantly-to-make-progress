@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+  <script src="./lib/axios-v0.17.1.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <input type="button" value="get请求" @click="getInfo">
+    <input type="button" value="post请求" @click="postInfo">
+  </div>
+
+  <script>
+    // 把 axios 挂载到 Vue 构造函数的原型上
+    Vue.prototype.$http = axios
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        async getInfo() {
+          // this.$http.get()
+          /* const { data } = await axios.get('http://39.106.32.91:3000/api/getlunbo')
+          console.log(data) */
+
+          const { data } = await this.$http.get('http://39.106.32.91:3000/api/getlunbo')
+          console.log(data)
+        },
+
+        async postInfo() {
+          const { data } = await this.$http.post('http://39.106.32.91:3000/api/post', { name: 'zs' })
+          console.log(data)
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

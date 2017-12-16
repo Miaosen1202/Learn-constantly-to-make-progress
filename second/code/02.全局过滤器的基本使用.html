@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 把 纯洁 这两个字，在渲染的时候，替换为 邪恶， 前提是：不要修改 msg  -->
+    <!-- 注意： 使用Vue中过滤器，并不会修改原数据，只是在展示数据的时候，做了一层包装而已； -->
+    <h3>{{ msg | strFormat('开心') | addStr }}</h3>
+  </div>
+
+  <hr>
+
+  <div id="app2">
+    <h3>{{ msg | strFormat | addStr }}</h3>
+  </div>
+
+  <script>
+
+    // 创建全局的一个过滤器
+    Vue.filter('strFormat', function (data, str = "邪恶") {
+      /* return data.replace('纯洁', '邪恶') */
+      return data.replace(/纯洁/g, str)
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        msg: '曾经，我也是一个纯洁的人，纯洁的我傻傻的问：世界上最纯洁的男人是谁？？？'
+      },
+      methods: {}
+    });
+
+
+    var vm2 = new Vue({
+      data: {
+        msg: '纯洁，纯洁，纯洁，纯洁'
+      },
+      methods: {}, // 事件处理函数，一些方法
+      filters: { // 当前实例私有的过滤器
+        addStr(data) {
+          return data + '~~~~'
+        },
+        // 如果全局过滤器和私有过滤器重名了，则会就近原则调用过滤器
+        strFormat(data) { // vm2 的私有过滤器，会在给定字符串的后面，添加一串 ===== 
+          return data + '========'
+        }
+      }
+    })
+
+    vm2.$mount('#app2')
+  </script>
+</body>
+
+</html>
