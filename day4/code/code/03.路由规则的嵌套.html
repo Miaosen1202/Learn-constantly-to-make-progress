@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+  <script src="./lib/vue-router-v3.0.1.js"></script>
+  <style>
+    .account {
+      height: 400px;
+      border: 1px solid red;
+    }
+
+    .newslist {
+      height: 400px;
+      border: 1px solid green;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 路由链接 -->
+    <router-link to="/account">显示账号组件</router-link>
+    <router-link to="/newslist">新闻列表组件</router-link>
+
+    <!-- 路由的容器 -->
+    <router-view></router-view>
+  </div>
+
+  <script>
+
+    const account = {
+      template: `<div class="account">
+        <h1>这是 Account 账号组件</h1>
+
+        <!-- 子路由链接 -->
+        <router-link to="/account/login">登录</router-link>
+        <router-link to="/account/reg">注册</router-link>
+
+        <!-- 子路由容器 -->
+        <router-view></router-view>
+      </div>`
+    }
+    const newslist = {
+      template: `<div class="newslist">
+        <h1>这是新闻列表组件</h1>
+      </div>`
+    }
+
+    const login = {
+      template: `<div>
+        <h3>登录</h3>
+      </div>`
+    }
+    const reg = {
+      template: `<div>
+        <h3>注册</h3>
+      </div>`
+    }
+
+    const router = new VueRouter({
+      routes: [
+        {
+          path: '/account', component: account, children: [
+            { path: 'login', component: login }, // account 规则的子路由规则， 注意： 使用 children 属性创建的子路由规则，path 前面，不要带 / 
+            { path: 'reg', component: reg }
+          ]
+        }, // 展示账号组件的路由匹配规则
+        { path: '/newslist', component: newslist }, // 新闻列表路由的匹配规则
+      ]
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      router
+    });
+  </script>
+</body>
+
+</html>
+
+
+<!-- 通过 路由规则 的 children 属性，实现路由规则的嵌套，这样， 组件之间也就有了嵌套关系 -->

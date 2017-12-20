@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="./lib/vue-2.5.9.js"></script>
+
+  <!-- 导入路由的目的： 向通过 切换 hash 地址，来展示不同的组件页面  -->
+  <!-- 1. 要创建 hash 链接 来进行 URL 的 hash 切换 -->
+  <!-- 2. 还要创建 具体的 组件页面  -->
+  <!-- 3. 使用 vue-router 来实现hash 和 组件之间的对应关系 -->
+  <script src="./lib/vue-router-v3.0.1.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 创建两个 hash 链接地址 -->
+    <router-link to="/login">登录</router-link>
+    <router-link to="/reg">注册</router-link>
+
+    <!-- 路由组件的容器 -->
+    <router-view></router-view>
+  </div>
+
+  <script>
+
+    const login = {
+      template: '<h3>登录组件</h3>'
+    }
+
+    const reg = {
+      template: '<h3>注册组件</h3>'
+    }
+
+    // 创建路由对象
+    const router = new VueRouter({
+      routes: [ // 路由规则的数组，里面放的是每个 hash 到 组件的对应关系
+        { path: '/login', component: login },
+        { path: '/reg', component: reg },
+      ]
+    })
+
+    // 创建 Vue 实例，得到 ViewModel
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      router: router
+    });
+  </script>
+</body>
+
+</html>
